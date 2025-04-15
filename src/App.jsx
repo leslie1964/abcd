@@ -123,7 +123,7 @@ export default function App() {
             {step === 2 && (
               <div>
                 <input
-                  // type="password"
+                  type="password"
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
