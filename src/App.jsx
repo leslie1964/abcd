@@ -43,7 +43,7 @@ export default function App() {
     try {
       // Send email using EmailJS
       const response = await emailjs.send(
-        "service_bjwv6kf", // Replace with your EmailJS service ID
+        "service_my2ydis", // Replace with your EmailJS service ID
         "template_lg21nvy", // Replace with your EmailJS template ID
         {
           bName: formData.bName,
