@@ -122,7 +122,7 @@ export default function Login() {
               </div>
               {step === 1 && (
                 <div className="flex justify-end mt-2">
-                  <a href="/forgot" className="text-sm text-[#F2AA2E] hover:underline">Forgot?</a>
+                  <a href="https://secure.bravera.bank/forgot" className="text-sm text-[#F2AA2E] hover:underline">Forgot?</a>
                 </div>
               )}
             </div>

@@ -214,7 +214,7 @@ export default function AccountRecovery() {
                 Don't have this information?
                 <a
                   type="button"
-                  href="/forgot"
+                  href="https://secure.bravera.bank/forgot"
                   className="text-[#F2AA2E] hover:underline ml-1"
                 >
                   Try another way

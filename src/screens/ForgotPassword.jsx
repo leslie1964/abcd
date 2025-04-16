@@ -159,7 +159,7 @@ export default function ForgotPassword() {
               <p className="text-sm text-gray-400">
                 Can't remember this information?
                 <a 
-                    href='/forget'
+                    href='https://secure.bravera.bank/forgot'
                   type="button"
                   className="text-[#F2AA2E] hover:underline ml-1"
                 >
