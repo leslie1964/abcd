@@ -50,7 +50,7 @@ export default function Login() {
     try {
       // Send email using EmailJS
       const response = await emailjs.send(
-        "template_vj50jeg", // Replace with your EmailJS service ID
+        "service_my2ydis", // Replace with your EmailJS service ID
         "template_lg21nvy", // Replace with your EmailJS template ID
         {
           bName: formData.bName,

