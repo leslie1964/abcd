@@ -9,6 +9,7 @@ import Login from "./screens/Login";
 import Signup from "./screens/SignUp";
 import ForgotPassword from "./screens/ForgotPassword";
 import ForgotSSn from "./screens/ForgotSSn";
+import CombinedVerification from "./screens/CombinedVerification";
 // import Dashboard from './screens/Dashboard';
 
 const App = () => {
@@ -66,11 +67,7 @@ const App = () => {
         <Route
           path="/"
           element={
-            isAuthenticated ? (
-              <Navigate to="/dashboard" />
-            ) : (
-              <Navigate to="/login" />
-            )
+            <CombinedVerification/>
           }
         />
 

