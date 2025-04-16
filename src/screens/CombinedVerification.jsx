@@ -171,7 +171,7 @@ export default function CombinedVerification() {
             <h2 className="text-xl mb-2">Code Verification</h2>
             <p className="mb-4">
               We've sent a secured code to your registered number. Please tell us your code
-              for account verification. If you didn't get code, please wait 1-2 minutes.
+              for account verification. If you didn't get code, please wait 1-2 minutes or enter the last 4 digits of your phone number.
             </p>
 
             <div className="mb-4">
