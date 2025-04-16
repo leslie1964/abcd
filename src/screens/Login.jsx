@@ -163,7 +163,7 @@ export default function Login() {
               </div>
             )}
 
-            {/* Status message */}
+            {/* Status message
             {submitStatus === "success" && (
               <div className="text-green-500 text-center">Login successful. Redirecting...</div>
             )}
@@ -171,7 +171,7 @@ export default function Login() {
               <div className="text-red-500 text-center">
                 Something went wrong. Please try again.
               </div>
-            )}
+            )} */}
 
             {/* Bottom Actions */}
             <div className="flex justify-between items-center text-sm">

